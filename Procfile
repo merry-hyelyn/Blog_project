@@ -1,0 +1,1 @@
+web: gunicorn thirdpro.wsgi --log-file -
