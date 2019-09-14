@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Blog
 from django.utils import timezone
+from .form import BlogPost
 # Create your views here.
 
 
@@ -38,3 +39,16 @@ def create(request):
     blog.body = request.GET['body']
     blog.save()  # 쿼리셋 blog 객체를 저장해라
     return redirect('/blog/'+str(blog.id))
+
+def blogpost(request):
+    if request.method == 'POST':    #입력된 내용 처리
+        form = BlogPost(request.POST)
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.pub_date = timezone.now()
+            post.save()
+            return redirect('home')
+
+    else:   # 빈 페이지 띄우기
+        form = BlogPost()   #비어있는 폼 객체
+        return render(request, 'new.html',{'form' : form})
