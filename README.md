@@ -2,4 +2,4 @@
 
 ## Like Lion 4th 과제
 
-### blog 만들기
+### Blog 만들기
